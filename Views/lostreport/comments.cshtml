@@ -1,0 +1,77 @@
+﻿@model IEnumerable<pforum_frontend.Models.usercomment>
+
+@{
+    ViewBag.Title = "comments";
+}
+
+<div>
+    <p>
+        lostitem =@ViewBag.post.lostitem
+    </p>
+
+    <p>
+        details =@ViewBag.post.details
+    </p>
+    <p>
+        time =@ViewBag.post.ptime
+    </p>
+    <p>
+        username =@ViewBag.post.username
+    </p>
+    <p>
+        email =@ViewBag.post.email
+    </p>
+</div>
+<h1>
+    comments
+</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userdetail.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userdetail.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userdetail.designation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comments.cmnt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comments.ctime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userdetail.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userdetail.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userdetail.designation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comments.cmnt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comments.ctime)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<form method="post" action="/lostreport/makecomments">
+    <input type="text" id="com" name="com" class="form-control" />
+    <input type="hidden" name="postid" id="postid" value=@ViewBag.post.postid>
+    <input type="submit" class="accordion-button" />
+</form>
+

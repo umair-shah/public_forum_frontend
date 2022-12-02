@@ -1,0 +1,66 @@
+﻿@model IEnumerable<pforum_frontend.Models.gdpost>
+
+@{
+    ViewBag.Title = "viewgd";
+}
+
+<h2>All posts</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.postid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ptime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.topic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.designation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.postid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ptime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.topic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.designation)
+        </td>
+        <td>
+            @Html.ActionLink("comments", "comments","generalpost", @item,null) |
+
+        </td>
+    </tr>
+}
+
+</table>

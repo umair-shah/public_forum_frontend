@@ -1,0 +1,49 @@
+﻿@model IEnumerable<pforum_frontend.Models.lppost>
+
+@{
+    ViewBag.Title = "yourlpposts";
+}
+
+<h2>yourlpposts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.postid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ptime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lostitem)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.postid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ptime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lostitem)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

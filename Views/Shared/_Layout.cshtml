@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Public Forum</a>
+            </div>
+            <div class="collapse navbar-collapse">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/generalpost/generaldiscussion">General posts</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/lostreport/lostreports">Lost reports</a></li>
+                </ul>
+            </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item active"><a class="nav-link" href="/signup/signuppage"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/signup/loginpage"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            
+        </div>
+    </nav>
+    <div class="container body-content">
+
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
