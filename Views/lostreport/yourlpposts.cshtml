@@ -3,47 +3,41 @@
 @{
     ViewBag.Title = "yourlpposts";
 }
+<link href="~/styles/viewpost.css" rel="stylesheet" />
+<section class="wrapper">
+    <div class="container">
 
-<h2>yourlpposts</h2>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card text-white card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?tech,street');">
+                        <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <small class="card-meta mb-2">Lost Item</small>
+                                <h4 class="card-title mt-0 "><a class="text-white" href="@Url.Action("comments","lostreport",item)">@Html.DisplayFor(modelItem => item.lostitem)</a></h4>
+                                <small><i class="far fa-clock"></i>@Html.DisplayFor(modelItem => item.ptime)</small>
+                            </div>
+                            <div class="card-footer">
+                                <div class="media">
+                                    <img class="mr-3 rounded-circle" src="~/images/ipt3.png" alt="Generic placeholder image" style="max-width:50px">
+                                    <div class="media-body">
+                                        <h6 class="my-0 text-white d-block">@Html.DisplayFor(modelItem => item.username)</h6>
+                                        <small>@Html.DisplayFor(modelItem => item.email)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.postid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ptime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lostitem)
-        </th>
-        <th></th>
-    </tr>
+                </div>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.postid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ptime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lostitem)
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+        </div>
 
-</table>
+
+
+
+    </div>
+</section>

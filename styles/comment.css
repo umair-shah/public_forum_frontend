@@ -1,0 +1,29 @@
+﻿
+k190184 Huzaifa Mehmood
+5:04 PM (0 minutes ago)
+to me
+
+body {
+    /* Created with https://www.css-gradient.com */
+    background: #23EC55;
+    background: -webkit-radial-gradient(top right, #23EC55, #2D51C1);
+    background: -moz-radial-gradient(top right, #23EC55, #2D51C1);
+    background: radial-gradient(to bottom left, #23EC55, #2D51C1);
+}
+
+.edit {
+    /* Created with https://www.css-gradient.com */
+    background: #23EC55;
+    background: -webkit-radial-gradient(top right, #23EC55, #2D51C1);
+    background: -moz-radial-gradient(top right, #23EC55, #2D51C1);
+    background: radial-gradient(to bottom left, #23EC55, #2D51C1);
+}
+
+
+.link-muted {
+    color: #aaa;
+}
+
+    .link-muted:hover {
+        color: #1266f1;
+    }

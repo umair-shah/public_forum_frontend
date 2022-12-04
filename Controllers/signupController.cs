@@ -43,6 +43,10 @@ namespace pforum_frontend.Controllers
         //}
         public ActionResult loginpage()
         {
+            Session["userid"] = null;
+            Session["email"] = null;
+            Session["username"] = null;
+
             return View();
         }
     }

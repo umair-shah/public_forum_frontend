@@ -94,7 +94,7 @@
 <script>
     function userlogin() {
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "https://localhost:44371/api/authfuser", true);
+        xhttp.open("POST", "https://localhost:44371/api/authfuser/authloginuser", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Key", "Secret@123");
         var obj = { email: document.getElementById("email").value, password: document.getElementById("pass").value };

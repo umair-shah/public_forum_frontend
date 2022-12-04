@@ -1,67 +1,80 @@
 ﻿@model IEnumerable<pforum_frontend.Models.lppost>
-
+<link href="~/styles/viewpost.css" rel="stylesheet" />
 @{
     ViewBag.Title = "viewlp";
+    var jsonItems = 10;// new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.LastOrDefault().postid);
+
 }
+<section class="wrapper">
+    <div class="container">
 
-<h2>viewlp</h2>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card text-white card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?tech,street');">
+                        <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <small class="card-meta mb-2">Item Lost</small>
+                                <h4 class="card-title mt-0 "><a class="text-white" href="@Url.Action("comments","lostreport",item)"> @Html.DisplayFor(modelItem => item.lostitem)</a></h4>
+                                <small><i class="far fa-clock"></i>@Html.DisplayFor(modelItem => item.ptime)</small>
+                            </div>
+                            <div class="card-footer">
+                                <div class="media">
+                                    <img class="mr-3 rounded-circle" src="~/images/ipt3.png" alt="Generic placeholder image" style="max-width:50px">
+                                    <div class="media-body">
+                                        <h6 class="my-0 text-white d-block">@Html.DisplayFor(modelItem => item.username)</h6>
+                                        <small>@Html.DisplayFor(modelItem => item.email)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.postid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ptime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lostitem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.designation)
-        </th>
-        <th></th>
-    </tr>
+                </div>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.postid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ptime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lostitem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.designation)
-        </td>
-        <td>
-            @Html.ActionLink("comments", "comments", "lostreport", @item, null)
-        </td>
-    </tr>
-}
+        </div>
 
-</table>
+
+
+
+    </div>
+</section>
+
+<script>
+    var lastpostid;
+    $(document).ready(function () {
+        lastpostid =  @Html.Raw(jsonItems);
+        setInterval(getgeneraldiscussion, 3000);
+    });
+    function getgeneraldiscussion() {
+        if (lastpostid != null) {
+            var id = lastpostid;
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://localhost:44371/api/lostreport/getlivelostreports/"+id, true);
+            xhttp.send();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    console.log(response);
+                    for (i = 0; i < response.length; i++) {
+                        var postid = response[i].postid;
+                        var ptime = response[i].ptime.trim().replace(/ /g, '%20');
+                        var details = response[i].details.trim().replace(/ /g, '%20');
+                        var lostitem = response[i].lostitem.trim().replace(/ /g, '%20');
+                        var usernname = response[i].username.trim().replace(/ /g, '%20');
+                        var email = response[i].email.trim().replace(/ /g, '%20');
+                        var designation = response[i].designation.trim().replace(/ /g, '%20');
+                        var url = "/lostreport/comments" + "?postid=" + postid + "&ptime=" + ptime + "&details=" + details + "&lostitem=" + lostitem + "&username=" + usernname + "&email=" + email + "&designation=" + designation;
+                        var markup = '<div class="col-sm-12 col-md-6 col-lg-4 mb-4"><div class="card text-white card-has-bg click-col" style="background-image:url(' + 'https://source.unsplash.com/600x900/?tech,street' + ');"><img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?"><div class="card-img-overlay d-flex flex-column"><div class="card-body"><small class="card-meta mb-2">Post Topic</small><h4 class="card-title mt-0 "><a class="text-white" href=' + url + '">' + response[i].lostitem + '</a></h4><small><i class="far fa-clock">' + response[i].ptime + '</i></small></div><div class="card-footer"><div class="media"><img class="mr-3 rounded-circle" src=' + "/images/ipt3.png" + ' alt="Generic placeholder image" style="max-width:50px"><div class="media-body"><h6 class="my-0 text-white d-block">' + response[i].username + '</h6><small>' + response[i].email + '</small></div></div></div></d></div></div>';
+                        $(".row").append(markup)
+                        lastpostid = response[i].postid;
+                    }
+                }
+            }
+        }
+    };
+
+</script>

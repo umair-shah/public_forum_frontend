@@ -9,29 +9,22 @@ using pforum_frontend.Models;
 
 namespace pforum_frontend.Controllers
 {
-    static class onlineuser
-    {
-        public static int userid;
-        public static string username;
-        public static string email;
-    }
+
     public class HomeController : Controller
     {
         // GET: Home
         public ActionResult Index(int userid)
         {
 
-            onlineuser.userid = userid;
             if(userid>0)
             {
                 user logined = new user();
-
                 using (var client = new HttpClient())
                 {
 
-                    client.BaseAddress = new Uri("https://localhost:44371/api/");
+                    client.BaseAddress = new Uri("https://localhost:44371/api/fuser/");
                     //HTTP GET
-                    var responseTask = client.GetAsync("fuser/" + userid);
+                    var responseTask = client.GetAsync("getuser/" + userid);
                     responseTask.Wait();
 
                     var result = responseTask.Result;
@@ -51,12 +44,20 @@ namespace pforum_frontend.Controllers
                         ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                     }
                 }
-                onlineuser.email = logined.email;
-                onlineuser.username = logined.username;
-                return View();
+                Session["userid"] = logined.userid;
+                Session["username"] = logined.username;
+                Session["email"] = logined.email;
+                return RedirectToAction("homepage","Home");
             }
             return RedirectToAction("loginpage", "signup");
-
+        }
+        public ActionResult homepage()
+        {
+            if(Session["userid"]== null)
+            {
+                return RedirectToAction("loginpage", "signup");
+            }
+            return View();
         }
     }
 }

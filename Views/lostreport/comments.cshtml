@@ -1,77 +1,179 @@
 ﻿@model IEnumerable<pforum_frontend.Models.usercomment>
-
+<link href="~/styles/comment.css" rel="stylesheet" />
 @{
+    dynamic jsonItems, jsonpItems;
+    jsonItems = null;
+    jsonpItems = null;
     ViewBag.Title = "comments";
-}
-
-<div>
-    <p>
-        lostitem =@ViewBag.post.lostitem
-    </p>
-
-    <p>
-        details =@ViewBag.post.details
-    </p>
-    <p>
-        time =@ViewBag.post.ptime
-    </p>
-    <p>
-        username =@ViewBag.post.username
-    </p>
-    <p>
-        email =@ViewBag.post.email
-    </p>
-</div>
-<h1>
-    comments
-</h1>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.userdetail.username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.userdetail.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.userdetail.designation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comments.cmnt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comments.ctime)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    if (Model.Count() > 0)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.userdetail.username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.userdetail.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.userdetail.designation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.comments.cmnt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.comments.ctime)
-            </td>
-
-        </tr>
+        jsonItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.LastOrDefault().comments.cid);
     }
+    else
+    {
+        jsonItems = 0;
+    }
+    jsonpItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.post.postid);
+}
+<section class="edit">
+    <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-start align-items-center">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="~/images/ipt3.png" alt="avatar" width="60"
+                                 height="60" />
+                            <div>
+                                <h6 class="fw-bold text-primary mb-1">Posted by @ViewBag.post.username </h6>
+                                <p class="text-muted small mb-0">
+                                    @ViewBag.post.ptime
+                                </p>
+                            </div>
+                        </div>
 
-</table>
-<form method="post" action="/lostreport/makecomments">
-    <input type="text" id="com" name="com" class="form-control" />
-    <input type="hidden" name="postid" id="postid" value=@ViewBag.post.postid>
-    <input type="submit" class="accordion-button" />
-</form>
+                        <p class="mt-3 mb-4 pb-2">
+                            @ViewBag.post.details
+                        </p>
 
+
+
+                        <div>
+                            <h4>Comments</h4>
+                        </div>
+
+
+                        <div>
+
+
+                            <section style="background-color: #ad655f;">
+                                <div class="container my-5 py-5">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-12 col-lg-10">
+                                            <div class="card text-dark">
+                                                <div id="box" class="card-body p-4">
+                                                    <h4 class="mb-0">Recent comments</h4>
+                                                    <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
+
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <div>
+
+
+
+                                                            <div class="d-flex flex-start">
+                                                                <img class="rounded-circle shadow-1-strong me-3"
+                                                                     src="~/images/ipt3.png" alt="avatar" width="60"
+                                                                     height="60" />
+                                                                <div>
+                                                                    <h6 class="fw-bold mb-1"> @Html.DisplayFor(modelItem => item.userdetail.username)</h6>
+
+                                                                    <p class="mb-0">
+                                                                        @Html.DisplayFor(modelItem => item.comments.cmnt)
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr class="my-0" style="height: 1px;" />
+
+                                                            <br>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                            </section>
+
+
+
+
+
+
+
+
+
+                            @*@foreach (var item in Model)
+                                {
+                                <p>Commented by  @Html.DisplayFor(modelItem => item.userdetail.username) :  @Html.DisplayFor(modelItem => item.comments.cmnt) </p><br />
+
+                                }*@
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                        <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="~/images/ipt3.png" alt="avatar" width="40"
+                                 height="40" />
+                            <div class="form-outline w-100">
+
+                                <form>
+                                    <input type="text" id="com" name="com" class="form-control" placeholder="Comment Here" />
+                                    <input type="hidden" name="postid" id="postid" value=@ViewBag.post.postid>
+                                    <input type="hidden" name="userid" id="userid" value=@Session["userid"]> <br>
+                                    <button type="button" onclick="usercomment()" class="btn btn-primary btn-sm" >comment</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var lastcomid = @Html.Raw(jsonItems);
+    var postid =@Html.Raw(jsonpItems);
+
+    $(document).ready(function () {
+        setInterval(getlivecomments, 2000);
+    });
+    function getlivecomments() {
+        console.log(lastcomid)
+        if (lastcomid > 0) {
+            var id = lastcomid;
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://localhost:44371/api/comment/getlivecomments/?pid=" + postid+"&lcid="+lastcomid, true);
+            xhttp.send();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    console.log(response);
+                    for (i = 0; i < response.length; i++) {
+                        var markup = '<div><div class="d-flex flex-start"><img class="rounded-circle shadow-1-strong me-3"src="/images/ipt3.png" alt="avatar" width="60"height="60" /><div><h6 class="fw-bold mb-1"> ' + response[i].userdetail.username + '</h6><p class="mb-0">' + response[i].comments.cmnt + ' </p></div></div><hr class="my-0" style="height: 1px;" /><br></div>'
+                        $("#box").append(markup);
+                        lastcomid = response[i].comments.cid;
+                    }
+
+                }
+            }
+        }
+    };
+
+
+
+
+    function usercomment() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "https://localhost:44371/api/comment/postcomment", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Key", "Secret@123");
+        var obj = { cid: 0, postid: document.getElementById("postid").value, userid: document.getElementById("userid").value, cmnt: document.getElementById("com").value, ctime: new Date() };
+        console.log(obj);
+        xhttp.send(JSON.stringify(obj));
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+                window.location.reload();
+            }
+        };
+    }
+</script>

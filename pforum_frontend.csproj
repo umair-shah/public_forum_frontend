@@ -148,6 +148,10 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\ipt1.jpg" />
+    <Content Include="images\ipt3.png" />
+    <Content Include="images\ipt4.png" />
+    <Content Include="images\ipt5.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -159,6 +163,10 @@
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="styles\comment.css" />
+    <Content Include="styles\generaldiscussion.css" />
+    <Content Include="styles\viewpost.css" />
+    <Content Include="styles\welcome.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -207,21 +215,18 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\signup\signuppage.cshtml" />
     <Content Include="Views\signup\loginpage.cshtml" />
-    <Content Include="Views\generalpost\generaldiscussion.cshtml" />
     <Content Include="Views\generalpost\makepost.cshtml" />
     <Content Include="Views\generalpost\viewgd.cshtml" />
     <Content Include="Views\generalpost\yourgdposts.cshtml" />
     <Content Include="Views\generalpost\comments.cshtml" />
-    <Content Include="Views\lostreport\lostreports.cshtml" />
     <Content Include="Views\lostreport\makelostreport.cshtml" />
     <Content Include="Views\lostreport\viewlp.cshtml" />
-    <Content Include="Views\lostreport\yourgdposts.cshtml" />
     <Content Include="Views\lostreport\comments.cshtml" />
     <Content Include="Views\lostreport\yourlpposts.cshtml" />
     <Content Include="Views\comment\comments.cshtml" />
+    <Content Include="Views\Home\homepage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

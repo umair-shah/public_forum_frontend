@@ -3,12 +3,80 @@
     ViewBag.Title = "makepost";
 }
 
-<div>
-    <form method="post" action="/generalpost/generaldiscussion">
-        <input type="text" id="topic" name="topic" class="form-control" />
-        <input type="text" id="detail" name="detail" class="form-control" />
-        <input type="submit" class="accordion-button" />
-    </form>
+@*<div>
+        <form method="post" action="/generalpost/generaldiscussion">
+            <input type="text" id="topic" name="topic" class="form-control" />
+            <input type="text" id="detail" name="detail" class="form-control" />
+            <input type="submit" class="accordion-button" />
+        </form>
+    </div>*@
+
+
+
+
+
+<link href="~/styles/generaldiscussion.css" rel="stylesheet" />
+
+
+<div class="container px-4 py-5 mx-auto">
+
+    <div class="row d-flex justify-content-center">
+        <div class="card">
+            <div class="row px-3">
+                <img class="profile-pic mr-3" src="~/images/ipt4.png">
+                <div class="flex-column">
+                    <h3 class="mb-0 font-weight-normal">What's on your mind !?</h3>
+                </div>
+            </div>
+            <div class="row px-3 form-group">
+
+                <form method="post" action="/generalpost/generaldiscussion">
+
+                    <label>Give suitable topic for the Post</label>
+                    <input type="text" id="topic" name="topic" class="form-control" placeholder="Topic" />
+                    @*<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>*@
+
+
+                    <label>Details about the post....</label>
+                    <input type="text" id="detail" name="detail" class="form-control" placeholder="Provide some description" /> <br />
+
+                    @*<div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>*@
+
+                    <input type="submit" class="btn btn-success ml-auto" />
+
+                </form>
+
+            </div>
+
+
+            @*<form method="post" action="/generalpost/generaldiscussion">
+                    <label>Topic For The Post</label>
+                    <input type="text" id="topic" name="topic" class="form-control" />
+                    <label>Details abot the post....</label>
+                    <input type="text" id="detail" name="detail" class="form-control" />
+                    <input type="submit" class="btn btn-success ml-auto" />
+                </form>*@
+            @*<textarea id="topic" name="topic" class="text-muted bg-light mt-4 mb-3" placeholder="Hi Camilla, what's on your mind today?"></textarea>*@
+
+
+            @*<div class="row px-3 form-group">
+                    <textarea id="detail" name="detail" class="text-muted bg-light mt-4 mb-3" placeholder="Hi Camilla, what's on your mind today?"></textarea>
+                </div>*@
+
+            @*<div class="row px-3">
+                    <p class="fa fa-user options mb-0 mr-4"></p>
+                    <p class="fa fa-map-marker options mb-0 mr-4"></p>
+                    <p class="fa fa-image options mb-0 mr-4"></p>
+                    <img class="options" src="https://img.icons8.com/material/24/000000/more--v2.png" width="30px" height="28px">
+
+                    <input type="submit" class="btn btn-success ml-auto" />
+
+                </div>*@
+        </div>
+    </div>
 </div>
 
 

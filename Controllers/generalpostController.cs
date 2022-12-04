@@ -11,21 +11,20 @@ namespace pforum_frontend.Controllers
     public class generalpostController : Controller
     {
         // GET: generalpost
-        [HttpGet]
-        public ActionResult generaldiscussion()
-        {
+        //[HttpGet]
+        //public ActionResult generaldiscussion()
+        //{
+        //    if (Convert.ToInt32( Session["userid"]) < 1)
+        //    {
+        //        return RedirectToAction("loginpage", "signup");
+        //    }
 
-            if (onlineuser.userid < 1)
-            {
-                return RedirectToAction("loginpage", "signup");
-            }
-
-            return View();
-        }
+        //    return View();
+        //}
         [HttpGet]
         public ActionResult makepost()
         {
-            if (onlineuser.userid < 1)
+            if (Convert.ToInt32(Session["userid"]) < 1)
             {
                 return RedirectToAction("loginpage", "signup");
             }
@@ -39,24 +38,24 @@ namespace pforum_frontend.Controllers
             gd.postid = 0;
             gd.newp.postid = 0;
             gd.newp.ptime = DateTime.Now;
-            gd.newp.userid = onlineuser.userid;
+            gd.newp.userid = Convert.ToInt32(Session["userid"]);
             gd.newp.adminid = 1;
             gd.newp.typeid = 1;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/generaldiscussion/");
 
                 //HTTP POST
-                var postTask = client.PostAsJsonAsync<generaldiscussion>("generaldiscussion", gd);
+                var postTask = client.PostAsJsonAsync<generaldiscussion>("postgeneraldiscussion", gd);
                 postTask.Wait();
 
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("generaldiscussion", "generalpost");
+                    return RedirectToAction("viewgd", "generalpost");
                 }
             }
-            return RedirectToAction("generaldiscussion", "generalpost");
+            return RedirectToAction("viewgd", "generalpost");
         }
         public ActionResult viewgd()
         {
@@ -65,9 +64,9 @@ namespace pforum_frontend.Controllers
             using (var client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/generaldiscussion/");
                 //HTTP GET
-                var responseTask = client.GetAsync("generaldiscussion");
+                var responseTask = client.GetAsync("getgeneraldiscussions");
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -143,9 +142,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/generaldiscussion/");
                 //HTTP GET
-                var responseTask = client.GetAsync("generaldiscussion/" + onlineuser.userid);
+                var responseTask = client.GetAsync("getusergeneraldiscussion/" + Convert.ToInt32(Session["userid"]));
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -185,9 +184,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
                 //HTTP GET
-                var responseTask = client.GetAsync("comment/" + item.postid);
+                var responseTask = client.GetAsync("getcomment/" + item.postid);
                 responseTask.Wait();
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -212,15 +211,14 @@ namespace pforum_frontend.Controllers
         public ActionResult makecomments(string com, int postid)
         {
             comment newcomment = new comment();
-            newcomment.userid = onlineuser.userid;
+            newcomment.userid = Convert.ToInt32(Session["userid"]);
             newcomment.postid = postid;
             newcomment.cmnt = com;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
-
+                client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
                 //HTTP POST
-                var postTask = client.PostAsJsonAsync<comment>("comment", newcomment);
+                var postTask = client.PostAsJsonAsync<comment>("postcomment/", newcomment);
                 postTask.Wait();
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)

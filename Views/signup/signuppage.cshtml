@@ -78,7 +78,7 @@
     }
     function usersignup() {
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "https://localhost:44371/api/fuser", true);
+        xhttp.open("POST", "https://localhost:44371/api/fuser/postnewuser", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Key", "Secret@123");
         var obj = { username: document.getElementById("username").value, email: document.getElementById("email").value, password: document.getElementById("password").value, designation: document.getElementById("designation").value };

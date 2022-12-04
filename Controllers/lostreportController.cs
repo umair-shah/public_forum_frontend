@@ -13,7 +13,7 @@ namespace pforum_frontend.Controllers
         [HttpGet]
         public ActionResult lostreports()
         {
-            if (onlineuser.userid < 1)
+            if (Convert.ToInt32(Session["userid"]) < 1)
             {
                 return RedirectToAction("loginpage", "signup");
             }
@@ -23,7 +23,7 @@ namespace pforum_frontend.Controllers
         [HttpGet]
         public ActionResult makelostreport()
         {
-            if (onlineuser.userid < 1)
+            if (Convert.ToInt32(Session["userid"]) < 1)
             {
                 return RedirectToAction("loginpage", "signup");
             }
@@ -37,25 +37,25 @@ namespace pforum_frontend.Controllers
             lp.postid = 0;
             lp.newp.postid = 0;
             lp.newp.ptime = DateTime.Now;
-            lp.newp.userid = onlineuser.userid;
+            lp.newp.userid = Convert.ToInt32(Session["userid"]);
             lp.newp.adminid = 1;
             lp.newp.typeid = 1;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/lostreport/");
 
                 //HTTP POST
-                var postTask = client.PostAsJsonAsync<lostreport>("lostreport", lp);
+                var postTask = client.PostAsJsonAsync<lostreport>("postlostreport/", lp);
                 postTask.Wait();
 
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("lostreports", "lostreport");
+                    return RedirectToAction("viewlp", "lostreport");
                 }
             }
 
-            return RedirectToAction("lostreports", "lostreport");
+            return RedirectToAction("viewlp", "lostreport");
         }
         public ActionResult viewlp()
         {
@@ -64,9 +64,9 @@ namespace pforum_frontend.Controllers
             using (var client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/lostreport/");
                 //HTTP GET
-                var responseTask = client.GetAsync("lostreport");
+                var responseTask = client.GetAsync("getlostreports");
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -141,9 +141,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/lostreport/");
                 //HTTP GET
-                var responseTask = client.GetAsync("lostreport/" + onlineuser.userid);
+                var responseTask = client.GetAsync("getuserslostreport/" + Convert.ToInt32(Session["userid"]));
                 responseTask.Wait();
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -181,9 +181,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
                 //HTTP GET
-                var responseTask = client.GetAsync("comment/" + item.postid);
+                var responseTask = client.GetAsync("getcomment/" + item.postid);
                 responseTask.Wait();
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -208,15 +208,15 @@ namespace pforum_frontend.Controllers
         public ActionResult makecomments(string com, int postid)
         {
             comment newcomment = new comment();
-            newcomment.userid = onlineuser.userid;
+            newcomment.userid = Convert.ToInt32(Session["userid"]);
             newcomment.postid = postid;
             newcomment.cmnt = com;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/");
+                client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
 
                 //HTTP POST
-                var postTask = client.PostAsJsonAsync<comment>("comment", newcomment);
+                var postTask = client.PostAsJsonAsync<comment>("postcomment/", newcomment);
                 postTask.Wait();
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
