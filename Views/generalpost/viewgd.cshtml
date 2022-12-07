@@ -1,11 +1,18 @@
 ﻿@model IEnumerable<pforum_frontend.Models.gdpost>
 <link href="~/styles/viewpost.css" rel="stylesheet" />
 @{
-
+    dynamic jsonItems;
     ViewBag.Title = "viewgd";
-
-    var jsonItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.LastOrDefault().postid);
+    if (Model.Count() > 0)
+    {
+        jsonItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.LastOrDefault().postid);
+    }
+    else
+    {
+        jsonItems = 0;
+    }
     //var jsonItems = Convert.ToString(Model.LastOrDefault().ptime);
+    var apiurl = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.apiurl);
 
 }
 
@@ -16,7 +23,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-white card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?tech,street');">
+                    <div class="card text-white card-has-bg click-col" style="background-image:url(/images/ipt9.png);">
                         <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
@@ -49,6 +56,8 @@
 
 <script>
     var lastpostid;
+    var apiurl =@Html.Raw(apiurl);
+    apiurl = apiurl + "generaldiscussion/getlivegeneraldiscussion/";
     $(document).ready(function () {
         lastpostid =  @Html.Raw(jsonItems);
 
@@ -59,7 +68,8 @@
         if (lastpostid != null) {
             var id = lastpostid;
             var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "https://localhost:44371/api/generaldiscussion/getlivegeneraldiscussion/"+id, true);
+    
+            xhttp.open("GET", apiurl+id, true);
             xhttp.send();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {

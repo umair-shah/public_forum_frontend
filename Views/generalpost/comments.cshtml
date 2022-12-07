@@ -14,6 +14,8 @@
         jsonItems = 0;
     }
     jsonpItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.post.postid);
+    var apiurl = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.apiurl);
+
 }
 <link href="~/styles/comment.css" rel="stylesheet" />
 <section class="edit">
@@ -132,8 +134,10 @@
     </div>
 </section>
 <script>
-    var lastcomid = 20;//@Html.Raw(jsonItems);;
-    var postid=@Html.Raw(jsonpItems);
+    var lastcomid = @Html.Raw(jsonItems);;
+    var postid =@Html.Raw(jsonpItems);
+    var apiurl = @Html.Raw(apiurl);
+    apiurl = apiurl + "comment/getlivecomments/?pid=";
     $(document).ready(function () {
         setInterval(getlivecomments, 3000);
     });
@@ -142,12 +146,12 @@
         if (lastcomid != null) {
             var id = lastcomid;
             var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "https://localhost:44371/api/comment/getlivecomments/?pid=" + postid+"&lcid="+lastcomid, true);
+            xhttp.open("GET", apiurl + postid+"&lcid="+lastcomid, true);
             xhttp.send();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
-                    console.log(response); 
+                    console.log(response);
                     for (i = 0; i < response.length; i++) {
                         var markup = '<div><div class="d-flex flex-start"><img class="rounded-circle shadow-1-strong me-3"src="/images/ipt3.png" alt="avatar" width="60"height="60" /><div><h6 class="fw-bold mb-1"> ' + response[i].userdetail.username + '</h6><p class="mb-0">' + response[i].comments.cmnt + ' </p></div></div><hr class="my-0" style="height: 1px;" /><br></div>'
                         $("#box").append(markup);

@@ -14,6 +14,8 @@
         jsonItems = 0;
     }
     jsonpItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.post.postid);
+    var apiurl = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.apiurl);
+
 }
 <section class="edit">
     <div class="container my-5 py-5">
@@ -132,7 +134,8 @@
 <script>
     var lastcomid = @Html.Raw(jsonItems);
     var postid =@Html.Raw(jsonpItems);
-
+    var apiurl = @Html.Raw(apiurl);
+    apiurl = apiurl + "comment/getlivecomments/?pid=";
     $(document).ready(function () {
         setInterval(getlivecomments, 2000);
     });
@@ -141,7 +144,7 @@
         if (lastcomid > 0) {
             var id = lastcomid;
             var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "https://localhost:44371/api/comment/getlivecomments/?pid=" + postid+"&lcid="+lastcomid, true);
+            xhttp.open("GET", apiurl + postid + "&lcid=" + lastcomid, true);
             xhttp.send();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {

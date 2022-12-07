@@ -149,9 +149,14 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="images\ipt1.jpg" />
+    <Content Include="images\ipt10.jpg" />
     <Content Include="images\ipt3.png" />
     <Content Include="images\ipt4.png" />
     <Content Include="images\ipt5.jpg" />
+    <Content Include="images\ipt6.png" />
+    <Content Include="images\ipt7.png" />
+    <Content Include="images\ipt8.jpg" />
+    <Content Include="images\ipt9.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -165,6 +170,8 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="styles\comment.css" />
     <Content Include="styles\generaldiscussion.css" />
+    <Content Include="styles\layout.css" />
+    <Content Include="styles\loginpage.css" />
     <Content Include="styles\viewpost.css" />
     <Content Include="styles\welcome.css" />
     <Content Include="Web.config" />
@@ -225,7 +232,6 @@
     <Content Include="Views\lostreport\viewlp.cshtml" />
     <Content Include="Views\lostreport\comments.cshtml" />
     <Content Include="Views\lostreport\yourlpposts.cshtml" />
-    <Content Include="Views\comment\comments.cshtml" />
     <Content Include="Views\Home\homepage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

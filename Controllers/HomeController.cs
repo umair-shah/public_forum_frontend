@@ -6,6 +6,7 @@ using System.Net.Http;
 
 using System.Web.Mvc;
 using pforum_frontend.Models;
+using System.Configuration;
 
 namespace pforum_frontend.Controllers
 {
@@ -21,8 +22,9 @@ namespace pforum_frontend.Controllers
                 user logined = new user();
                 using (var client = new HttpClient())
                 {
-
-                    client.BaseAddress = new Uri("https://localhost:44371/api/fuser/");
+                    string url = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+                    url = url + "fuser/";
+                    client.BaseAddress = new Uri(url);
                     //HTTP GET
                     var responseTask = client.GetAsync("getuser/" + userid);
                     responseTask.Wait();

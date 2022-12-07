@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -10,42 +11,18 @@ namespace pforum_frontend.Controllers
 {
     public class signupController : Controller
     {
-        
         // GET: signup
         public ActionResult signuppage()
         {
-          
+            ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
             return View();
         }
-        //public ActionResult adduser(string username ,string email,string password, string designation)
-        //{
-        //    user newuser = new user();
-        //    newuser.username = username;
-        //    newuser.email = email;
-        //    newuser.password = password;
-        //    newuser.designation = designation;
-
-        //    using (var client = new HttpClient())
-        //    {
-        //        client.BaseAddress = new Uri("https://localhost:44371/api/signup/");
-
-        //        //HTTP POST
-        //        var postTask = client.PostAsJsonAsync<user>("addnewuser", newuser);
-        //        postTask.Wait();
-
-        //        var result = postTask.Result;
-        //        if (result.IsSuccessStatusCode)
-        //        {
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    return RedirectToAction("signuppage","signup");
-        //}
         public ActionResult loginpage()
         {
             Session["userid"] = null;
             Session["email"] = null;
             Session["username"] = null;
+            ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
 
             return View();
         }

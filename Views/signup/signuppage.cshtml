@@ -1,13 +1,15 @@
 ﻿
 @{
     ViewBag.Title = "signuppage";
+    var apiurl = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.apiurl);
+
 }
 
-<section class="vh-100" style="background-color: #eee;">
+<section  class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
-                <div class="card text-black" style="border-radius: 25px;">
+                <div class="card text-black" style="border-radius: 70px;">
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
@@ -19,7 +21,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="username" name="username" class="form-control" />
+                                            <input type="text" id="username" name="username" placeholder="umair shah" class="form-control" required />
                                             <label class="form-label" for="username">Your Name</label>
                                         </div>
                                     </div>
@@ -27,7 +29,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="email" id="email" name="email" class="form-control" />
+                                            <input type="email" id="email" name="email" placeholder="k190234@nu.edu.pk" class="form-control" required />
                                             <label class="form-label" for="email">Your Email</label>
                                         </div>
                                     </div>
@@ -35,7 +37,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="password" id="password" name="password" class="form-control" />
+                                            <input type="password" id="password" name="password" placeholder="password" class="form-control" required />
                                             <label class="form-label" for="password">Password</label>
                                         </div>
                                     </div>
@@ -43,7 +45,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="designation" name="designation" class="form-control" />
+                                            <input type="text" id="designation" name="designation" placeholder="e.g: student" class="form-control" required />
                                             <label class="form-label" for="designation">Designation</label>
                                         </div>
                                     </div>
@@ -76,23 +78,51 @@
         if (i === n) return 0;
         return a.charAt(i) > b.charAt(i) ? -1 : 1;
     }
+
     function usersignup() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "https://localhost:44371/api/fuser/postnewuser", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.setRequestHeader("Key", "Secret@123");
-        var obj = { username: document.getElementById("username").value, email: document.getElementById("email").value, password: document.getElementById("password").value, designation: document.getElementById("designation").value };
-        xhttp.send(JSON.stringify(obj));
 
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
-                var responsemessege = xhttp.responseText;
-                console.log(responsemessege);
+        let valid = true;
+        $('[required]').each(function () {
+            if ($(this).is(':invalid') || !$(this).val()) valid = false;
+        })
+        if (!valid) {
+            document.getElementById("mes").innerText = "please fill all the fields";
 
-                document.getElementById("mes").innerHTML = "registered successfuly";
-                location.href = "/signup/loginpage";
+        }
+        else {
+            let email = String(document.getElementById("email").value);
+            let pos = email.search("nu.edu.pk");
+
+            if (pos < 0) {
+                document.getElementById("mes").innerText = "invalid email format(nu.edu.pk)";
             }
+            else {
+                    var apiurl = @Html.Raw(apiurl);
+                    apiurl = apiurl +"fuser/postnewuser"
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", apiurl, true);
+                    xhttp.setRequestHeader("Content-type", "application/json");
+                    xhttp.setRequestHeader("Key", "Secret@123");
+                    var obj = { username: document.getElementById("username").value, email: document.getElementById("email").value, password: document.getElementById("password").value, designation: document.getElementById("designation").value };
+                    xhttp.send(JSON.stringify(obj));
+
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = JSON.parse(this.responseText);
+                            var responsemessege = xhttp.responseText;
+                            console.log(responsemessege);
+                            if (strcmp(responsemessege,"done")) {
+                                document.getElementById("mes").innerHTML = "registered successfuly";
+                                alert("registered successfully")
+                                location.href = "/signup/loginpage";
+                            }
+                            else {
+                                document.getElementById("mes").innerHTML = "email already registered";
+                            }
+                        }
+                        }
         };
+        }
+
     }
 </script>

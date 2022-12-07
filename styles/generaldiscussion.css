@@ -2,18 +2,26 @@
 
 body {
     /* Created with https://www.css-gradient.com */
-    background: #23EC55;
+/*    background: #23EC55;
     background: -webkit-radial-gradient(top right, #23EC55, #2D51C1);
     background: -moz-radial-gradient(top right, #23EC55, #2D51C1);
-    background: radial-gradient(to bottom left, #23EC55, #2D51C1);
+    background: radial-gradient(to bottom left, #23EC55, #2D51C1);*/
+    background: url(/images/ipt10.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
-
+.gap{
+    margin-inline-start:50rem;
+}
 .card {
     border-radius: 10px;
     width: 500px;
     padding: 20px;
     margin-top: 50px;
     margin-bottom: 50px;
+    background:rgb(233,216,20)
 }
 
 .profile-pic {

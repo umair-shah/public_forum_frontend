@@ -1,0 +1,16 @@
+﻿body {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.adjust {
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+.render {
+    margin: 35px;
+    padding: 35px;
+}

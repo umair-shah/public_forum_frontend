@@ -5,21 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using pforum_frontend.Models;
 using System.Net.Http;
+using System.Configuration;
+
 namespace pforum_frontend.Controllers
 {
     public class lostreportController : Controller
     {
         // GET: generalpost
-        [HttpGet]
-        public ActionResult lostreports()
-        {
-            if (Convert.ToInt32(Session["userid"]) < 1)
-            {
-                return RedirectToAction("loginpage", "signup");
-            }
 
-            return View();
-        }
         [HttpGet]
         public ActionResult makelostreport()
         {
@@ -42,7 +35,9 @@ namespace pforum_frontend.Controllers
             lp.newp.typeid = 1;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/lostreport/");
+                string url = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+                url = url + "lostreport/";
+                client.BaseAddress = new Uri(url);
 
                 //HTTP POST
                 var postTask = client.PostAsJsonAsync<lostreport>("postlostreport/", lp);
@@ -63,8 +58,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-
-                client.BaseAddress = new Uri("https://localhost:44371/api/lostreport/");
+                string url = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+                url = url + "lostreport/";
+                client.BaseAddress = new Uri(url);
                 //HTTP GET
                 var responseTask = client.GetAsync("getlostreports");
                 responseTask.Wait();
@@ -85,54 +81,8 @@ namespace pforum_frontend.Controllers
                     ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
             }
-            //IEnumerable<user> users = null;
-            //using (var client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri("https://localhost:44371/api/signup/");
-            //    //HTTP GET
-            //    var responseTask = client.GetAsync("userdetails/1");
-            //    responseTask.Wait();
+            ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
 
-            //    var result = responseTask.Result;
-            //    if (result.IsSuccessStatusCode)
-            //    {
-            //        var readTask = result.Content.ReadAsAsync<IList<user>>();
-            //        readTask.Wait();
-
-            //        users = readTask.Result;
-            //    }
-            //    else //web api sent error response 
-            //    {
-            //        //log response status here..
-
-            //        users = Enumerable.Empty<user>();
-
-            //        ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-            //    }
-            //}
-            //List<lppost> lostreportposts = new List<lppost>();
-            //lppost temp = null;
-            //foreach (var item in lp)
-            //{
-            //    temp = new lppost();
-            //    temp.postid = item.postid;
-            //    temp.ptime = item.newp.ptime;
-            //    temp.lostitem = item.lostitem;
-            //    temp.details = item.details;
-            //    foreach (var u in users)
-            //    {
-            //        if (u.userid == item.newp.userid)
-            //        {
-            //            temp.designation = u.designation;
-            //            temp.email = u.email;
-            //            temp.username = u.username;
-            //            break;
-            //        }
-            //    }
-            //    lostreportposts.Add(temp);
-
-            //    temp = null;
-            //}
             return View(lp);
         }
         public ActionResult yourlpposts()
@@ -141,7 +91,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/lostreport/");
+                string url = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+                url = url + "lostreport/";
+                client.BaseAddress = new Uri(url);
                 //HTTP GET
                 var responseTask = client.GetAsync("getuserslostreport/" + Convert.ToInt32(Session["userid"]));
                 responseTask.Wait();
@@ -181,7 +133,9 @@ namespace pforum_frontend.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
+                string url = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+                url = url + "comment/";
+                client.BaseAddress = new Uri(url);
                 //HTTP GET
                 var responseTask = client.GetAsync("getcomment/" + item.postid);
                 responseTask.Wait();
@@ -201,30 +155,33 @@ namespace pforum_frontend.Controllers
                     ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
             }
+            ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+
             ViewBag.post = item;
             return View(uc);
         }
-        [HttpPost]
-        public ActionResult makecomments(string com, int postid)
-        {
-            comment newcomment = new comment();
-            newcomment.userid = Convert.ToInt32(Session["userid"]);
-            newcomment.postid = postid;
-            newcomment.cmnt = com;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
+        //[HttpPost]
+        //public ActionResult makecomments(string com, int postid)
+        //{
+        //    comment newcomment = new comment();
+        //    newcomment.userid = Convert.ToInt32(Session["userid"]);
+        //    newcomment.postid = postid;
+        //    newcomment.cmnt = com;
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri("https://localhost:44371/api/comment/");
 
-                //HTTP POST
-                var postTask = client.PostAsJsonAsync<comment>("postcomment/", newcomment);
-                postTask.Wait();
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("viewlp", "lostreport");
-                }
-            }
-            return RedirectToAction("viewlp", "lostreport");
-        }
+        //        //HTTP POST
+        //        var postTask = client.PostAsJsonAsync<comment>("postcomment/", newcomment);
+        //        postTask.Wait();
+        //        var result = postTask.Result;
+        //        if (result.IsSuccessStatusCode)
+        //        {
+        //            return RedirectToAction("viewlp", "lostreport");
+        //        }
+        //    }
+        //    return RedirectToAction("viewlp", "lostreport");
+        //}
+    
     }
 }
