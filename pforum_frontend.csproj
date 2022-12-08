@@ -150,6 +150,7 @@
     <Content Include="Global.asax" />
     <Content Include="images\ipt1.jpg" />
     <Content Include="images\ipt10.jpg" />
+    <Content Include="images\ipt12.jpg" />
     <Content Include="images\ipt3.png" />
     <Content Include="images\ipt4.png" />
     <Content Include="images\ipt5.jpg" />

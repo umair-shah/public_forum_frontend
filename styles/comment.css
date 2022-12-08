@@ -1,23 +1,25 @@
-﻿
-k190184 Huzaifa Mehmood
-5:04 PM (0 minutes ago)
-to me
+﻿body {
+   /* background: rgb(252,188,3);*/
+    background: url(images/ipt12.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+      //   Created with https://www.css-gradient.com
+/*    background: #23EC55;
+    background: -webkit-radial-gradient(top right, #23EC55, #2D51C1);
+    background: -moz-radial-gradient(top right, #23EC55, #2D51C1);
+    background: radial-gradient(to bottom left, #23EC55, #2D51C1);*/
+}
 
-body {
-    /* Created with https://www.css-gradient.com */
-    background: #23EC55;
+
+
+/*.edit {
+    Created with https://www.css-gradient.com background: #23EC55;
     background: -webkit-radial-gradient(top right, #23EC55, #2D51C1);
     background: -moz-radial-gradient(top right, #23EC55, #2D51C1);
     background: radial-gradient(to bottom left, #23EC55, #2D51C1);
-}
-
-.edit {
-    /* Created with https://www.css-gradient.com */
-    background: #23EC55;
-    background: -webkit-radial-gradient(top right, #23EC55, #2D51C1);
-    background: -moz-radial-gradient(top right, #23EC55, #2D51C1);
-    background: radial-gradient(to bottom left, #23EC55, #2D51C1);
-}
+}*/
 
 
 .link-muted {
@@ -27,3 +29,21 @@ body {
     .link-muted:hover {
         color: #1266f1;
     }
+
+.brdr {
+    border-block: solid:inset;
+}
+
+
+.card {
+    background: rgb(255 255 255);
+    /*    background: url(/images/ipt11.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;*/
+}
+
+.gap {
+    margin-inline-start: 50rem;
+}
