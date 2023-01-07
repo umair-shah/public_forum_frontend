@@ -57,7 +57,7 @@ namespace pforum_frontend.Controllers
             return RedirectToAction("loginpage", "signup");
         }
         public ActionResult homepage()
-        {
+        {            
             if(Session["userid"]== null)
             {
                 return RedirectToAction("loginpage", "signup");
