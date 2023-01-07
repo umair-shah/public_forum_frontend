@@ -10,7 +10,20 @@ using System.Configuration;
 
 namespace pforum_frontend.Controllers
 {
-
+    public class validateuser
+    {
+        public static bool validateuserby(Iuserspecification spec, user u)
+        {
+            if (spec.Issatisfied(u) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
     public class HomeController : Controller
     {
         // GET: Home
@@ -49,7 +62,10 @@ namespace pforum_frontend.Controllers
                 Session["userid"] = logined.userid;
                 Session["username"] = logined.username;
                 Session["email"] = logined.email;
-                return RedirectToAction("homepage","Home");
+                if(validateuser.validateuserby(new useridspecification(logined.userid), logined)==true)
+                {
+                    return RedirectToAction("homepage", "Home");
+                }
             }
             return RedirectToAction("loginpage", "signup");
         }

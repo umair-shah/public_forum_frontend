@@ -23,7 +23,6 @@ namespace pforum_frontend.Controllers
             Session["email"] = null;
             Session["username"] = null;
             ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
-
             return View();
         }
     }

@@ -9,6 +9,7 @@ using System.Configuration;
 
 namespace pforum_frontend.Controllers
 {
+
     public class lostreportController : Controller
     {
         // GET: generalpost
