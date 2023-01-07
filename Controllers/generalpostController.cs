@@ -83,6 +83,8 @@ namespace pforum_frontend.Controllers
             ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
             List<gdpost> listgd = gd.ToList();
             listgd = getgeneraldiscussion.getgeneraldiscussionby(new gdpostdesignationspecification("student"), listgd);
+           //listgd = getgeneraldiscussion.getgeneraldiscussionby(new gdposttopicspecification("programming"), listgd);
+
             ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
             return View(listgd);
         }
@@ -127,6 +129,7 @@ namespace pforum_frontend.Controllers
                 generalposts.Add(temp);
                 temp = null;
             }
+
             return View(generalposts);
         }
         // GET: comment
