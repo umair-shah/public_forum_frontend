@@ -85,6 +85,8 @@ namespace pforum_frontend.Controllers
             }
             List<lppost> listlp = lp.ToList();
             listlp = getlostreport.getlostreportby(new lppostdesignationspecification("student"), listlp);
+            //listlp = getlostreport.getlostreportby(new lppostitemspecification("laptop"), listlp);
+
             ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
             return View(listlp);
         }
