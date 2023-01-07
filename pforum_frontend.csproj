@@ -189,8 +189,13 @@
     <Compile Include="Models\comment.cs" />
     <Compile Include="Models\gdpost.cs" />
     <Compile Include="Models\generaldiscussion.cs" />
+    <Compile Include="Models\generaldiscussionspecification\gdpostdesignationspecification.cs" />
+    <Compile Include="Models\generaldiscussionspecification\gdposttopicspecification.cs" />
+    <Compile Include="Models\generaldiscussionspecification\getgeneraldiscussion.cs" />
+    <Compile Include="Models\generaldiscussionspecification\igdpostspecification.cs" />
     <Compile Include="Models\lostreportspecification\getlostreport.cs" />
     <Compile Include="Models\lostreportspecification\Ipostspecification.cs" />
+    <Compile Include="Models\lostreportspecification\lppostitemspecification.cs" />
     <Compile Include="Models\userspecification\Iuserspecification.cs" />
     <Compile Include="Models\lostreport.cs" />
     <Compile Include="Models\lppost.cs" />

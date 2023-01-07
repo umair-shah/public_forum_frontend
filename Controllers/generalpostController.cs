@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using pforum_frontend.Models;
 using System.Net.Http;
 using System.Configuration;
-
+using pforum_frontend.Models.generaldiscussionspecification;
 namespace pforum_frontend.Controllers
 {
     public class generalpostController : Controller
@@ -81,8 +81,10 @@ namespace pforum_frontend.Controllers
                 }
             }
             ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
-
-            return View(gd);
+            List<gdpost> listgd = gd.ToList();
+            listgd = getgeneraldiscussion.getgeneraldiscussionby(new gdpostdesignationspecification("student"), listgd);
+            ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
+            return View(listgd);
         }
         public ActionResult yourgdposts()
         {

@@ -7,7 +7,7 @@ namespace pforum_frontend.Models.generaldiscussionspecification
 {
     public class getgeneraldiscussion
     {
-        public static List<gdpost> getlostreportby(igdpostspecification spec, List<gdpost> gd)
+        public static List<gdpost> getgeneraldiscussionby(igdpostspecification spec, List<gdpost> gd)
         {
 
             List<gdpost> newgd = new List<gdpost>();
