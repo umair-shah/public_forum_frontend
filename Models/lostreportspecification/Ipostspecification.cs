@@ -8,6 +8,6 @@ namespace pforum_frontend.Models
 {
     public interface ipostspecification
     {
-        List<lppost> issatisfied(List<lppost> lp);
+        bool issatisfied(lppost lp);
     }
 }

@@ -189,13 +189,17 @@
     <Compile Include="Models\comment.cs" />
     <Compile Include="Models\gdpost.cs" />
     <Compile Include="Models\generaldiscussion.cs" />
-    <Compile Include="Models\Iuserspecification.cs" />
+    <Compile Include="Models\lostreportspecification\getlostreport.cs" />
+    <Compile Include="Models\lostreportspecification\Ipostspecification.cs" />
+    <Compile Include="Models\userspecification\Iuserspecification.cs" />
     <Compile Include="Models\lostreport.cs" />
     <Compile Include="Models\lppost.cs" />
+    <Compile Include="Models\lostreportspecification\lppostdesignationspecification.cs" />
     <Compile Include="Models\post.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\usercomment.cs" />
-    <Compile Include="Models\useridspecification.cs" />
+    <Compile Include="Models\userspecification\useridspecification.cs" />
+    <Compile Include="Models\userspecification\validateuser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

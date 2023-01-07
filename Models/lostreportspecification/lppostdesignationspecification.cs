@@ -12,17 +12,17 @@ namespace pforum_frontend.Models
         {
             _designation = designation;
         }
-        public List< lppost> issatisfied(List< lppost> lp)
+        public bool issatisfied(lppost lp)
         {
-            List<lppost> listlp = new List<lppost>();
-            foreach(lppost lostpost in lp)
+           
+            if(lp.designation==_designation)
             {
-                if(lostpost.designation==_designation)
-                {
-                    listlp.Add(lostpost);
-                }
+                return true;
             }
-            return listlp;
+            else
+            {
+                return false;
+            }
         }
     }
 }

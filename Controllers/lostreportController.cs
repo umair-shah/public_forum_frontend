@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using pforum_frontend.Models;
 using System.Net.Http;
 using System.Configuration;
+using pforum_frontend.Models.lostreportspecification;
 
 namespace pforum_frontend.Controllers
 {
@@ -82,9 +83,10 @@ namespace pforum_frontend.Controllers
                     ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
             }
+            List<lppost> listlp = lp.ToList();
+            listlp = getlostreport.getlostreportby(new lppostdesignationspecification("student"), listlp);
             ViewBag.apiurl = Convert.ToString(ConfigurationManager.AppSettings["apiurl"]);
-
-            return View(lp);
+            return View(listlp);
         }
         public ActionResult yourlpposts()
         {

@@ -7,23 +7,10 @@ using System.Net.Http;
 using System.Web.Mvc;
 using pforum_frontend.Models;
 using System.Configuration;
-
+using pforum_frontend.Models.userspecification;
 namespace pforum_frontend.Controllers
 {
-    public class validateuser
-    {
-        public static bool validateuserby(Iuserspecification spec, user u)
-        {
-            if (spec.Issatisfied(u) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
+
     public class HomeController : Controller
     {
         // GET: Home
